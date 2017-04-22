@@ -1,5 +1,6 @@
 .idea
-secret
 logger/__pycache__/
 logger/app/__pycache__
 logger/models/__pycache__
+logger/sites/__pycache__/
+/secrets/credentials.json

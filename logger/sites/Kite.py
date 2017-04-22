@@ -29,7 +29,6 @@ class kite:
         password_input.send_keys(self.credentials['password'])
 
         self.browser.find_element_by_name('login').click()
-
         self.answer_security_questions()
 
     def answer_security_questions(self):
@@ -46,5 +45,4 @@ class kite:
         second_que_input.send_keys(second_ans)
 
         self.browser.find_element_by_name('twofa').click()
-
         WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'user-id')))

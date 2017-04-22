@@ -44,7 +44,7 @@ def get_chromedriver_path():
 
 
 def get_credential_json_path():
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'secret', 'credentials.json'))
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'secrets', 'credentials.json'))
 
 
 def compose_path(folderName, fileName):
