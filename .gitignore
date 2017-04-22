@@ -1,2 +1,5 @@
 .idea
-geckodriver.log
+secret
+logger/__pycache__/
+logger/app/__pycache__
+logger/models/__pycache__
