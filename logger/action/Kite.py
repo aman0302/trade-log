@@ -1,27 +1,38 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import json
-from logger.app.ExecutablePath import *
+import logging
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+from logger.utils.ExecutablePath import *
 
 
-class kite:
+class Kite:
     def __init__(self, browser):
-        with open(get_credential_json_path()) as data_file:
+
+        with open(get_credentials_path()) as data_file:
             self.credentials = json.load(data_file)
             self.questions = self.credentials['questions']
             self.answers = self.credentials['answers']
         self.browser = browser
 
-
     def login_if_not(self):
+
         self.browser.get('https://kite.zerodha.com/dashboard/?login=true')
 
         url = self.browser.current_url
         if '#loggedout' in url:
+            logging.info('KITE not logged in. Logging in ...')
+            print('KITE not logged in. Logging in ...')
             return self.login()
 
+        else:
+            logging.info('KITE already logged in.')
+            print('KITE already logged in.')
+
     def login(self):
+
         username_input = self.browser.find_element_by_name('user_id')
         password_input = self.browser.find_element_by_name('password')
 
@@ -32,6 +43,9 @@ class kite:
         self.answer_security_questions()
 
     def answer_security_questions(self):
+
+        logging.info('Answering security questions.')
+
         first_que = self.browser.find_element_by_class_name('first').text
         second_que = self.browser.find_element_by_class_name('second').text
 
@@ -46,3 +60,5 @@ class kite:
 
         self.browser.find_element_by_name('twofa').click()
         WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'user-id')))
+
+        logging.info('Answered security questions successfully.')

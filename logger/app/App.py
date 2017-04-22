@@ -1,17 +1,68 @@
+import schedule
+import time
+import logging
+
 from selenium import webdriver
 
-from logger.app.ExecutablePath import *
-from logger.sites.Kite import kite
-from logger.sites.Smallcase import smallcase
+from logger.action.Kite import Kite
+from logger.action.Smallcase import Smallcase
+from logger.action.GoogleSheet import GoogleSheet
+from logger.utils.ExecutablePath import *
+from logger.utils.Time import *
 
-# browser = webdriver.Firefox(executable_path=executablepath.get_geckodriver_path())
-browser = webdriver.Chrome(executable_path=get_chromedriver_path())
 
-kite = kite(browser)
-kite.login_if_not()
+class App:
+    def __init__(self):
+        # self.browser = webdriver.Firefox(executable_path=executablepath.get_geckodriver_path())
+        self.browser = webdriver.Chrome(executable_path=get_chromedriver_path())
+        self.login_prerequisite()
+        logging.basicConfig(filename='app.log', level=logging.DEBUG)
 
-smallcase = smallcase(browser)
-smallcase.login_if_not()
-smallcase.fetch_record()
+    def login_prerequisite(self):
+        try:
+            self.kite = Kite(self.browser)
+            self.kite.login_if_not()
 
-# browser.quit()
+            self.smallcase = Smallcase(self.browser)
+            self.smallcase.login_if_not()
+
+            self.googlesheet = GoogleSheet()
+
+        except:
+            self.browser.quit()
+
+    def execute(self):
+        smallcases = self.smallcase.fetch_record()
+        self.googlesheet.insert_data(smallcases)
+        # return schedule.CancelJob
+
+    def start(self):
+
+        start = 900
+        end = 1530
+        increment = 10
+
+        while start < (end + increment):
+            t = military_time_to_string(start)
+
+            logging.info('Scheduled for : %s', t)
+            print('Scheduled for : %s', t)
+
+            schedule.every().monday.at(t).do(self.execute)
+            schedule.every().tuesday.at(t).do(self.execute)
+            schedule.every().wednesday.at(t).do(self.execute)
+            schedule.every().thursday.at(t).do(self.execute)
+            schedule.every().friday.at(t).do(self.execute)
+            # schedule.every().saturday.at(t).do(self.execute)
+            # schedule.every().sunday.at(t).do(self.execute)
+
+            start = mililary_time_adjust_rolling_window(start + increment)
+
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+
+
+app = App()
+app.start()
+

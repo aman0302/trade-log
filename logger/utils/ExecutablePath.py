@@ -1,7 +1,8 @@
 import os, platform
-
+import logging
 
 def get_geckodriver_path():
+
     system = platform.system()
     folderName = ''
     fileName = ''
@@ -23,6 +24,7 @@ def get_geckodriver_path():
 
 
 def get_chromedriver_path():
+
     system = platform.system()
     folderName = ''
     fileName = ''
@@ -43,8 +45,11 @@ def get_chromedriver_path():
     return compose_path(folderName, fileName)
 
 
-def get_credential_json_path():
+def get_credentials_path():
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'secrets', 'credentials.json'))
+
+def get_google_drive_secret_path():
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'secrets', 'google_drive_secret.json'))
 
 
 def compose_path(folderName, fileName):

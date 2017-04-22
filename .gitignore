@@ -1,6 +1,13 @@
 .idea
-logger/__pycache__/
+
+logger/__pycache__
 logger/app/__pycache__
+logger/utils/__pycache__
+logger/sites/__pycache__
 logger/models/__pycache__
-logger/sites/__pycache__/
+logger/action/__pycache__
+
 /secrets/credentials.json
+/secrets/google_drive_secret.json
+
+/driver
