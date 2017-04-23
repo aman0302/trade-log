@@ -48,9 +48,15 @@ def get_chromedriver_path():
 def get_credentials_path():
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'secrets', 'credentials.json'))
 
+
 def get_google_drive_secret_path():
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'secrets', 'google_drive_secret.json'))
 
 
+def get_log_file_name():
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'application.log'))
+
+
 def compose_path(folderName, fileName):
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'driver', folderName, fileName))
+

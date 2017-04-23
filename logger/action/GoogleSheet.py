@@ -1,5 +1,4 @@
 import gspread
-import logging
 
 from oauth2client.service_account import ServiceAccountCredentials
 

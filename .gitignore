@@ -11,3 +11,5 @@ logger/action/__pycache__
 /secrets/google_drive_secret.json
 
 /driver
+
+application.log

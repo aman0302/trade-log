@@ -1,6 +1,5 @@
 import schedule
 import time
-import logging
 
 from selenium import webdriver
 
@@ -13,10 +12,13 @@ from logger.utils.Time import *
 
 class App:
     def __init__(self):
+        logging.basicConfig(filename=get_log_file_name(), level=logging.INFO)
+        logging.info('################SERVER STARTED###############')
+
         # self.browser = webdriver.Firefox(executable_path=executablepath.get_geckodriver_path())
         self.browser = webdriver.Chrome(executable_path=get_chromedriver_path())
         self.login_prerequisite()
-        logging.basicConfig(filename='app.log', level=logging.DEBUG)
+
 
     def login_prerequisite(self):
         try:
@@ -61,8 +63,3 @@ class App:
         while True:
             schedule.run_pending()
             time.sleep(1)
-
-
-app = App()
-app.start()
-
