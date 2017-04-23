@@ -22,9 +22,6 @@ class App:
 
     def login_prerequisite(self):
         try:
-            self.kite = Kite(self.browser)
-            self.kite.login_if_not()
-
             self.smallcase = Smallcase(self.browser)
             self.smallcase.login_if_not()
 
@@ -40,15 +37,18 @@ class App:
 
     def start(self):
 
-        start = 900
-        end = 1530
-        increment = 10
+        diff =530
+
+        start = 900-diff
+        end = 1530-diff
+
+        increment = 1
 
         while start < (end + increment):
             t = military_time_to_string(start)
 
             logging.info('Scheduled for : %s', t)
-            print('Scheduled for : %s', t)
+            print('Scheduled for : ', t)
 
             schedule.every().monday.at(t).do(self.execute)
             schedule.every().tuesday.at(t).do(self.execute)

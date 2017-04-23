@@ -1,14 +1,18 @@
+import logging
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from logger.models.SmallcaseModel import SmallcaseModel
+from logger.action.Kite import Kite
 from logger.utils.Time import *
 
 
 class Smallcase:
     def __init__(self, browser):
         self.browser = browser
+        self.kite = Kite(self.browser)
 
     def is_logged_in(self):
         self.browser.get('https://www.smallcase.com/investments/current')
@@ -18,8 +22,7 @@ class Smallcase:
             return True
 
     def login_if_not(self):
-        self.browser.get('https://www.smallcase.com/investments/current')
-        if 'login' in self.browser.current_url:
+        if not self.is_logged_in():
             print('SMALLCASE not logged in. Logging in ...')
             logging.info('SMALLCASE not logged in. Logging in ...')
             self.login()
@@ -29,11 +32,15 @@ class Smallcase:
             logging.info('SMALLCASE already logged in.')
 
     def login(self):
-        kitelogin = self.browser.find_element_by_class_name('kite-login')
-        kitelogin.click()
-        WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'username')))
+        self.kite.login_if_not()
+        if not self.is_logged_in():
+            kitelogin = self.browser.find_element_by_class_name('kite-login')
+            kitelogin.click()
+            WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'username')))
 
     def fetch_record(self):
+        self.login_if_not()
+
         self.browser.get('https://www.smallcase.com/investments/current')
         WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'marker-manage')))
 
@@ -41,6 +48,8 @@ class Smallcase:
         smallcases_stats = self.browser.find_elements_by_class_name('stats')
 
         smallcases = []
+
+        timestamp = get_current_timestamp()
 
         for i, smallcase_stat in enumerate(smallcases_stats):
             smallcase_meta = smallcases_meta[i].text.splitlines()
@@ -56,8 +65,10 @@ class Smallcase:
             actual_pnl = lines[7]
 
             sm = SmallcaseModel(name=name, index=index, value=value, investment=investment, pnl=pnl,
-                                actual_pnl=actual_pnl, bought_on=bought_on, timestamp=get_current_timestamp())
+                                actual_pnl=actual_pnl, bought_on=bought_on, timestamp=timestamp)
 
             smallcases.append(sm)
 
+        print(timestamp, ' : Fetched smallcases')
+        logging.info('%s : Fetched smallcases', timestamp)
         return smallcases
