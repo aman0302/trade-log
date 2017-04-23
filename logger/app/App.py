@@ -37,10 +37,8 @@ class App:
 
     def start(self):
 
-        diff =530
-
-        start = 900-diff
-        end = 1530-diff
+        start = 330 # 0900 - 0530 = 0330
+        end = 1000 # 1530 - 0530 = 1000
 
         increment = 1
 
