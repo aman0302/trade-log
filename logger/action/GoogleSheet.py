@@ -17,19 +17,19 @@ class GoogleSheet:
         self.sheet = self.gs.open("trade-log")
 
         print('Opened sheet.')
-        logging.info('Opened sheet.')
+        logging.info(':: GOOGLESHEET :: Opened sheet.')
 
     def insert_data(self, smallcases):
         for smallcase in smallcases:
             try:
                 curr_worksheet = self.sheet.worksheet(smallcase.name)
             except:
-                print('Creating worksheet for ', smallcase.name)
-                logging.info('Creating worksheet for ', smallcase.name)
+                print(':: GOOGLESHEET :: Creating worksheet for ', smallcase.name)
+                logging.info(':: GOOGLESHEET :: Creating worksheet for %s ', smallcase.name)
                 curr_worksheet = self.sheet.add_worksheet(title=smallcase.name, rows=2, cols=5)
 
             curr_worksheet = self.sheet.worksheet(smallcase.name)
             curr_worksheet.append_row(smallcase.get_ordered_data())
 
-            print(smallcase.name, ':', smallcase.index)
-            logging.info('%s : %s', smallcase.name, smallcase.index)
+            print(':: GOOGLESHEET ::', smallcase.name, ':', smallcase.index)
+            logging.info(':: GOOGLESHEET :: %s : %s', smallcase.name, smallcase.index)

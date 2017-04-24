@@ -23,13 +23,13 @@ class Smallcase:
 
     def login_if_not(self):
         if not self.is_logged_in():
-            print('SMALLCASE not logged in. Logging in ...')
-            logging.info('SMALLCASE not logged in. Logging in ...')
+            print(':: SMALLCASE :: not logged in. Logging in ...')
+            logging.info(':: SMALLCASE :: not logged in. Logging in ...')
             self.login()
 
         else:
-            print('SMALLCASE already logged in.')
-            logging.info('SMALLCASE already logged in.')
+            print(':: SMALLCASE :: already logged in.')
+            logging.info(':: SMALLCASE :: already logged in.')
 
     def login(self):
         self.kite.login_if_not()
@@ -69,6 +69,6 @@ class Smallcase:
 
             smallcases.append(sm)
 
-        print(timestamp, ' : Fetched smallcases')
-        logging.info('%s : Fetched smallcases', timestamp)
+        print(':: SMALLCASE ::', timestamp, ' : Fetched smallcases')
+        logging.info(':: SMALLCASE :: %s : Fetched smallcases', timestamp)
         return smallcases

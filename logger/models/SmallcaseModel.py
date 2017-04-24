@@ -1,6 +1,6 @@
 class SmallcaseModel:
     def __init__(self, name, index, investment, value, pnl, actual_pnl, bought_on, timestamp):
-        self.name = name
+        self.name = name.strip()
         self.index = float(index)
         self.investment = float(investment.replace('Rs.','').replace(',','').strip())
         self.value = float(value.replace('Rs.','').replace(',','').strip())

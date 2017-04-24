@@ -40,7 +40,7 @@ class App:
         start = 330 # 0900 - 0530 = 0330
         end = 1000 # 1530 - 0530 = 1000
 
-        increment = 1
+        increment = 10
 
         while start < (end + increment):
             t = military_time_to_string(start)

@@ -22,13 +22,13 @@ class Kite:
 
         url = self.browser.current_url
         if '#loggedout' in url:
-            logging.info('KITE not logged in. Logging in ...')
-            print('KITE not logged in. Logging in ...')
+            logging.info(':: KITE :: not logged in. Logging in ...')
+            print(':: KITE :: not logged in. Logging in ...')
             return self.login()
 
         else:
-            logging.info('KITE already logged in.')
-            print('KITE already logged in.')
+            logging.info(':: KITE :: already logged in.')
+            print(':: KITE :: already logged in.')
 
     def login(self):
 
@@ -43,7 +43,7 @@ class Kite:
 
     def answer_security_questions(self):
 
-        logging.info('Answering security questions.')
+        logging.info(':: KITE :: Answering security questions.')
 
         first_que = self.browser.find_element_by_class_name('first').text
         second_que = self.browser.find_element_by_class_name('second').text
@@ -60,4 +60,4 @@ class Kite:
         self.browser.find_element_by_name('twofa').click()
         WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'user-id')))
 
-        logging.info('Answered security questions successfully.')
+        logging.info(':: KITE :: Answered security questions successfully.')

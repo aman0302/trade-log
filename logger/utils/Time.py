@@ -1,8 +1,25 @@
-from time import localtime, strftime
+from datetime import datetime, tzinfo, timedelta
+
+
+class Zone(tzinfo):
+    def __init__(self, offset_in_minutes, isdst, name):
+        self.offset = offset_in_minutes
+        self.isdst = isdst
+        self.name = name
+
+    def utcoffset(self, dt):
+        return timedelta(minutes=self.offset) + self.dst(dt)
+
+    def dst(self, dt):
+        return timedelta(hours=1) if self.isdst else timedelta(0)
+
+    def tzname(self, dt):
+        return self.name
 
 
 def get_current_timestamp():
-    return strftime("%Y-%m-%d %H:%M:%S", localtime())
+    IST = Zone(330, False, 'IST')
+    return datetime.now(IST).strftime('%d/%m/%Y %H:%M:%S %Z')
 
 
 def military_time_to_string(mil_time):
