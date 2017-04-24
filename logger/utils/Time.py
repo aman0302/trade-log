@@ -19,7 +19,7 @@ class Zone(tzinfo):
 
 def get_current_timestamp():
     IST = Zone(330, False, 'IST')
-    return datetime.now(IST).strftime('%d/%m/%Y %H:%M:%S %Z')
+    return datetime.now(IST).strftime('%d/%m/%Y %H:%M:%S')
 
 
 def military_time_to_string(mil_time):
