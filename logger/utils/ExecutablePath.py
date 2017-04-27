@@ -62,5 +62,5 @@ def compose_path(folderName, fileName):
 
 
 def get_dump_location(file_name):
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'dump', file_name))
+    return os.path.abspath(os.path.join(os.path.expanduser("~"), 'Dropbox', 'Zerodha','Smallcase', file_name))
 
