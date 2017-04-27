@@ -3,6 +3,7 @@ import time
 
 from selenium import webdriver
 
+from logger.action.FileWriter import FileWriter
 from logger.action.Kite import Kite
 from logger.action.Smallcase import Smallcase
 from logger.action.GoogleSheet import GoogleSheet
@@ -25,14 +26,20 @@ class App:
             self.smallcase = Smallcase(self.browser)
             self.smallcase.login_if_not()
 
-            self.googlesheet = GoogleSheet()
+
 
         except:
             self.browser.quit()
 
     def execute(self):
         smallcases = self.smallcase.fetch_record()
-        self.googlesheet.insert_data(smallcases)
+        self.googlesheet = GoogleSheet()
+        self.filewriter = FileWriter()
+        try:
+            self.googlesheet.insert_data(smallcases)
+        finally:
+            self.filewriter.write(smallcases)
+
         # return schedule.CancelJob
 
     def start(self):
@@ -40,7 +47,7 @@ class App:
         start = 330 # 0900 - 0530 = 0330
         end = 1000 # 1530 - 0530 = 1000
 
-        increment = 10
+        increment = 1
 
         while start < (end + increment):
             t = military_time_to_string(start)

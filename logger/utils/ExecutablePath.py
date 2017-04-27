@@ -60,3 +60,7 @@ def get_log_file_name():
 def compose_path(folderName, fileName):
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'driver', folderName, fileName))
 
+
+def get_dump_location(file_name):
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'dump', file_name))
+

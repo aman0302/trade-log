@@ -12,7 +12,7 @@ class SmallcaseModel:
         print(self.name, ':',self.timestamp, self.index, self.investment, self.value, self.actual_pnl, self.pnl)
 
     def get_ordered_data(self):
-        return [self.timestamp, self.index, self.investment, self.value, self.actual_pnl, self.pnl]
+        return [self.timestamp,str(self.index), str(self.investment), str(self.value), str(self.actual_pnl), str(self.pnl)]
 
 
 # sm = SmallcaseModel('sm1','100.56','Rs. 6,766.89','Rs. 56,57.78','-56.56%','-5656.78','20Apr','rtrt')
