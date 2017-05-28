@@ -36,7 +36,7 @@ class Smallcase:
         if not self.is_logged_in():
             kitelogin = self.browser.find_element_by_class_name('kite-login')
             kitelogin.click()
-            WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'username')))
+            #WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'username')))
 
     def fetch_record(self):
         self.login_if_not()
