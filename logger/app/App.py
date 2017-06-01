@@ -26,8 +26,6 @@ class App:
             self.smallcase = Smallcase(self.browser)
             self.smallcase.login_if_not()
 
-
-
         except:
             self.browser.quit()
 
@@ -44,10 +42,10 @@ class App:
 
     def start(self):
 
-        start = 330 # 0900 - 0530 = 0330
-        end = 1000 # 1530 - 0530 = 1000
+        start = 900
+        end = 1530
 
-        increment = 1
+        increment = 30
 
         while start < (end + increment):
             t = military_time_to_string(start)
