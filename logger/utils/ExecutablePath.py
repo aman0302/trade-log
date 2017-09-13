@@ -16,7 +16,7 @@ def get_geckodriver_path():
         fileName = 'geckodriver.exe'
 
     if system == 'Linux':
-        folderName = 'linux'
+        folderName = 'linux32'
         fileName = 'geckodriver'
 
     return compose_path(folderName, fileName)
@@ -37,7 +37,7 @@ def get_chromedriver_path():
         fileName = 'chromedriver.exe'
 
     if system == 'Linux':
-        folderName = 'linux'
+        folderName = 'linux32'
         fileName = 'chromedriver'
 
     return compose_path(folderName, fileName)
