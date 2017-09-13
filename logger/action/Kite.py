@@ -1,4 +1,4 @@
-import json
+import json, logging
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from logger.utils.ExecutablePath import *
 
 
-class Kite:
+class kite:
     def __init__(self, browser):
 
         with open(get_credentials_path()) as data_file:
@@ -58,6 +58,6 @@ class Kite:
         second_que_input.send_keys(second_ans)
 
         self.browser.find_element_by_name('twofa').click()
-        WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'user-id')))
+        WebDriverWait(self.browser, 15).until(EC.presence_of_element_located((By.CLASS_NAME, 'user-id')))
 
         logging.info(':: KITE :: Answered security questions successfully.')

@@ -1,37 +1,34 @@
-import gspread
-
+import gspread, logging
 from oauth2client.service_account import ServiceAccountCredentials
-
 from logger.utils.ExecutablePath import *
 
 
-class GoogleSheet:
-    def __init__(self):
+class googlesheet:
+    def __init__(self, sheet_name):
+
+        self.sheet_name = sheet_name
         self.scope = "https://www.googleapis.com/auth/drive"
         self.credentials = ServiceAccountCredentials.from_json_keyfile_name(get_google_drive_secret_path(), self.scope)
 
         self.gs = gspread.authorize(self.credentials)
         self.open_sheet()
 
-
     def open_sheet(self):
-        self.sheet = self.gs.open("trade-log")
+        self.sheet = self.gs.open(str(self.sheet_name))
 
-        print('Opened sheet.')
+        print(':: GOOGLESHEET :: Opened sheet.')
         logging.info(':: GOOGLESHEET :: Opened sheet.')
 
-
-    def insert_data(self, smallcases):
+    def insert_smallcase_data(self, smallcases):
         for smallcase in smallcases:
             try:
                 self.insert(smallcase)
             except:
-                self.__init__()
-                self.insert(smallcase)
                 print(':: GOOGLESHEET :: Failed. Retrying again.', smallcase.name, ':', smallcase.index)
                 logging.info(':: GOOGLESHEET :: Failed. Retrying again. %s : %s', smallcase.name, smallcase.index)
 
-
+                self.__init__()
+                self.insert(smallcase)
 
     def insert(self, smallcase):
         try:
@@ -52,5 +49,3 @@ class GoogleSheet:
         logging.info(':: GOOGLESHEET :: %s : %s', smallcase.name, smallcase.index)
 
         return True
-
-

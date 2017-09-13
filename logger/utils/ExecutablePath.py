@@ -1,8 +1,7 @@
 import os, platform
-import logging
+
 
 def get_geckodriver_path():
-
     system = platform.system()
     folderName = ''
     fileName = ''
@@ -24,7 +23,6 @@ def get_geckodriver_path():
 
 
 def get_chromedriver_path():
-
     system = platform.system()
     folderName = ''
     fileName = ''
@@ -62,5 +60,4 @@ def compose_path(folderName, fileName):
 
 
 def get_dump_location(file_name):
-    return os.path.abspath(os.path.join(os.path.expanduser("~"), 'Dropbox', 'Zerodha','Smallcase', file_name))
-
+    return os.path.abspath(os.path.join(os.path.expanduser("~"), 'Dropbox', 'Zerodha', 'Smallcase', file_name))
