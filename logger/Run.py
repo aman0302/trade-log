@@ -1,6 +1,5 @@
 import sys,os, logging
 
-from logger.action.BrowserFactory import browser_factory
 from logger.sources.SmallcaseSource import smallcase_source
 
 sys.path.append(os.path.dirname(os.getcwd()))
