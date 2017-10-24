@@ -1,9 +1,7 @@
 import sys,os, logging
-
-from logger.sources.SmallcaseSource import smallcase_source
-
 sys.path.append(os.path.dirname(os.getcwd()))
 
+from logger.sources.SmallcaseSource import smallcase_source
 from logger.utils.ExecutablePath import *
 
 
