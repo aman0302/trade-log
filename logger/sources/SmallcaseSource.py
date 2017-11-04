@@ -10,9 +10,9 @@ from logger.utils.Time import *
 
 class smallcase_source():
     def __init__(self):
-        self.begin = 830
-        self.end = 1530
-        self.interval = 15
+        self.begin = 1500
+        self.end = 1600
+        self.interval = 1
         self.sheet_name = "trade-log1"
         self.pre_time = 825
         self.post_time = 1600
