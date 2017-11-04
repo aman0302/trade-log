@@ -61,3 +61,15 @@ def compose_path(folderName, fileName):
 
 def get_dump_location(file_name):
     return os.path.abspath(os.path.join(os.path.expanduser("~"), 'Dropbox', 'Zerodha', 'Smallcase', file_name))
+
+
+def get_mapping_file():
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'config', 'id_mapping'))
+
+
+def get_config_file():
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'config', 'config_file'))
+
+
+def get_count_file():
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'config', 'count'))

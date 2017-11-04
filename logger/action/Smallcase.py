@@ -1,21 +1,18 @@
-import logging
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from logger.models.SmallcaseModel import smallcase_model
 from logger.action.Kite import kite
-from logger.utils.Time import *
+from logger.utils.Reporter import *
 
 
 class smallcase:
     def __init__(self, browser):
         self.browser = browser
-        self.kite = kite(self.browser)
+        self.kite = kite(browser)
 
     def is_logged_in(self):
-
         self.browser.get('https://www.smallcase.com/investments/current')
         if 'login' in self.browser.current_url:
             return False
@@ -23,18 +20,14 @@ class smallcase:
             return True
 
     def login_if_not(self):
-
         if not self.is_logged_in():
-            print(':: SMALLCASE :: not logged in. Logging in ...')
-            logging.info(':: SMALLCASE :: not logged in. Logging in ...')
+            infoReport(':SMALLCASE: not logged in. Logging in ...')
             self.login()
 
         else:
-            print(':: SMALLCASE :: already logged in.')
-            logging.info(':: SMALLCASE :: already logged in.')
+            infoReport(':SMALLCASE: already logged in.')
 
     def login(self):
-
         self.kite.login_if_not()
         if not self.is_logged_in():
             kitelogin = self.browser.find_element_by_class_name('kite-login')
@@ -42,7 +35,6 @@ class smallcase:
             WebDriverWait(self.browser, 15).until(EC.presence_of_element_located((By.CLASS_NAME, 'smallcases')))
 
     def fetch_record(self):
-
         self.login_if_not()
         self.browser.get('https://www.smallcase.com/investments/current')
         WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'marker-manage')))
@@ -72,6 +64,5 @@ class smallcase:
 
             smallcases.append(sm)
 
-        print(':: SMALLCASE ::', timestamp, ' : Fetched smallcases')
-        logging.info(':: SMALLCASE :: %s : Fetched smallcases', timestamp)
+        debugReport(':SMALLCASE: Fetched smallcases')
         return smallcases

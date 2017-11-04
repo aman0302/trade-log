@@ -14,7 +14,7 @@ class googlesheet_test(unittest.TestCase):
         sm_list.append(sm)
         gs = googlesheet("trade-log1")
 
-        for i in range(100):
+        for i in range(25):
             gs.insert_smallcase_data(sm_list)
 
     def test_sheet_creation(self):

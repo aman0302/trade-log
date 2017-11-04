@@ -1,6 +1,7 @@
-import gspread, logging
+import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from logger.utils.ExecutablePath import *
+from logger.utils.Reporter import *
 
 
 class googlesheet:
@@ -15,18 +16,14 @@ class googlesheet:
 
     def open_sheet(self):
         self.sheet = self.gs.open(str(self.sheet_name))
-
-        print(':: GOOGLESHEET :: Opened sheet.')
-        logging.info(':: GOOGLESHEET :: Opened sheet.')
+        debugReport(':GOOGLESHEET: Opened sheet.')
 
     def insert_smallcase_data(self, smallcases):
         for smallcase in smallcases:
             try:
                 self.insert(smallcase)
             except:
-                print(':: GOOGLESHEET :: Failed. Retrying again.', smallcase.name, ':', smallcase.index)
-                logging.info(':: GOOGLESHEET :: Failed. Retrying again. %s : %s', smallcase.name, smallcase.index)
-
+                errorReport(':GOOGLESHEET: Failed. Retrying again.' + smallcase.name)
                 self.__init__()
                 self.insert(smallcase)
 
@@ -34,18 +31,15 @@ class googlesheet:
         try:
             curr_worksheet = self.sheet.worksheet(smallcase.name)
         except:
-            print(':: GOOGLESHEET :: Sheet does not exist. Creating worksheet for ', smallcase.name)
-            logging.info(':: GOOGLESHEET :: Sheet does not exist. Creating worksheet for %s ', smallcase.name)
+            infoReport(':GOOGLESHEET: Sheet does not exist. Creating worksheet for ' + smallcase.name)
             curr_worksheet = self.sheet.add_worksheet(title=smallcase.name, rows=2, cols=5)
 
         try:
             curr_worksheet = self.sheet.worksheet(smallcase.name)
             curr_worksheet.append_row(smallcase.get_ordered_data())
         except:
-            print(':: GOOGLESHEET :: Failed while puttind data for', smallcase.name, ':', smallcase.index)
-            logging.info(':: GOOGLESHEET :: Failed while puttind data for %s : %s', smallcase.name, smallcase.index)
+            errorReport(':GOOGLESHEET: Failed while puttind data for' + smallcase.name)
 
-        print(':: GOOGLESHEET ::', smallcase.name, ':', smallcase.index)
-        logging.info(':: GOOGLESHEET :: %s : %s', smallcase.name, smallcase.index)
+        debugReport(':GOOGLESHEET:' + smallcase.name)
 
         return True

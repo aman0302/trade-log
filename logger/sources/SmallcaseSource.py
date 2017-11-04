@@ -1,31 +1,32 @@
-import schedule, time, logging
-
+import schedule, time
 
 from logger.action.Persistance import persistance
 from logger.action.Smallcase import smallcase
 from logger.action.BrowserFactory import browser_factory
 
-from logger.utils.Time import *
+from logger.utils.Reporter import *
 
 
 class smallcase_source():
-    def __init__(self):
-        self.begin = 1500
-        self.end = 1600
-        self.interval = 1
-        self.sheet_name = "trade-log1"
-        self.pre_time = 825
-        self.post_time = 1600
+    def __init__(self, config):
+        self.begin = config['sm_begin']
+        self.end = config['sm_end']
+        self.interval = config['sm_interval']
+        self.sheet_name = config['sm_sheet_name']
+        self.pre_time = config['sm_pre_time']
+        self.post_time = config['sm_post_time']
         self.on = False
+        infoReport(":SMALLCASE SOURCE: initialized")
 
     def pre(self):
+        debugReport(':SMALLCASE SOURCE: pre() called')
         self.browser = browser_factory().get_browser()
         self.smallcase = smallcase(self.browser)
         self.smallcase.login_if_not()
         self.on = True
 
     def process(self):
-
+        debugReport(':SMALLCASE SOURCE: process() called')
         if not self.on:
             self.pre()
         try:
@@ -33,11 +34,10 @@ class smallcase_source():
             persistance().persist_smallcase(smallcases, self.sheet_name)
         except:
             self.post()
-            print(':: SMALLCASE SOURCE:: process() failed ...')
-            logging.info(':: SMALLCASE SOURCE:: process() failed ...')
-
+            errorReport(':SMALLCASE SOURCE: process() failed')
 
     def post(self):
+        debugReport(':SMALLCASE SOURCE: post() called')
         if self.on:
             self.browser.quit()
             self.browser = None
@@ -66,6 +66,8 @@ class smallcase_source():
         schedule.every().wednesday.at(military_time_to_string(self.post_time)).do(self.post)
         schedule.every().thursday.at(military_time_to_string(self.post_time)).do(self.post)
         schedule.every().friday.at(military_time_to_string(self.post_time)).do(self.post)
+
+        infoReport(':SMALLCASE SOURCE: smallcase scheduled')
 
         while True:
             schedule.run_pending()
