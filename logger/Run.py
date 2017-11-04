@@ -3,12 +3,11 @@ sys.path.append(os.path.dirname(os.getcwd()))
 
 from logger.sources.SmallcaseSource import smallcase_source
 from logger.utils.ExecutablePath import *
+from logger.utils.Reporter import *
 
 logging.basicConfig(filename=get_log_file_name(), level=logging.INFO)
 
-msg = '################ SERVER STARTED ###############'
-logging.info(msg)
-print(msg)
+infoReport('################ SERVER STARTED ###############')
 
 config = {}
 config['sm_begin'] = 900
