@@ -60,7 +60,7 @@ class upload_excel:
                         self.default_values[14] = total_price = 0
                     self.default_values[15] = decalred_value = 1900 * pieces
                     self.default_values[16] = total_weight = order["total_weight"]
-                    if (total_weight > 500 & total_weight <= 600):
+                    if total_weight > 500 and total_weight <= 600:
                         self.default_values[16] = total_weight = 500
 
                     for index, item in enumerate(self.default_values):

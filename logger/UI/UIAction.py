@@ -13,6 +13,7 @@ class ui_action(Frame):
         self.shopify_orders = []
         self.order_list = self.get_order_ids()
         self.selected_list = []
+        self.awb_list=[]
 
         self.pack(expand=YES, fill=BOTH)
         self.master.title("Magic Machine")
@@ -43,7 +44,10 @@ class ui_action(Frame):
         self.selected_list_box.pack(side=LEFT, expand=YES, fill=BOTH, padx=15, pady=15)
 
         self.texbox = Text(self)
-        self.texbox.pack(side=BOTTOM, padx=15, pady=15)
+        self.texbox.pack(side=TOP, padx=15, pady=15)
+
+        self.awb_texbox = Text(self)
+        self.awb_texbox.pack(side=TOP, padx=15, pady=15)
 
     def add_order(self):
         selected = self.order_list_box.getcurselection()
@@ -83,23 +87,25 @@ class ui_action(Frame):
 
     def confirm_orders(self):
         self.texbox.delete(1.0, END)
+        self.awb_texbox.delete(1.0, END)
         details = []
         # for order in self.shopify_orders:
         self.selected_list = list(self.selected_list_box.get(0, END))
         for order_id in self.selected_list:
-            for order in self.shopify_orders:
-                phone = str(order["billing_address"]["phone"]).strip().lstrip("0").replace(" ", "").replace("+91", "")
+            for order in self.shopify.get_all_recent_orders()["orders"]:
+                phone = str(order["shipping_address"]["phone"]).strip().lstrip("0").replace(" ", "").replace("+91", "")
                 if order["order_number"] == order_id:
                     payment_gateway = order["payment_gateway_names"]
                     if "cash_on_delivery" in payment_gateway:
                         product = "COD"
                     else:
                         product = "PPD"
-                    detail = str(order["order_number"]) + " -> " + str(
-                        order["fulfillments"][0]["tracking_number"]) + " -> " + product + " -> " + phone + " -> " + str(
-                        order["billing_address"]["name"]) + "\n"
+
+                    tracking_number=str(order["fulfillments"][0]["tracking_number"])
+                    detail = str(order["order_number"]) + " -> " +tracking_number + " -> " + product + " -> " + phone + " -> " + str(order["billing_address"]["name"]) + "\n"
                     details.append(detail)
                     self.texbox.insert(INSERT, detail)
+                    self.awb_texbox.insert(INSERT, tracking_number+",")
                     break
 
     def get_selected_orders(self):
@@ -109,6 +115,3 @@ class ui_action(Frame):
         self.ecom = ecom_source()
         self.ecom.pass_value(self.selected_list)
         self.ecom.start()
-
-
-ui_action().mainloop()
