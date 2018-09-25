@@ -1,4 +1,4 @@
-import json
+import json, time
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -21,6 +21,8 @@ class ecom:
         WebDriverWait(self.browser, self.max_wait_for_load).until(
             EC.presence_of_all_elements_located((By.CLASS_NAME, 'show-gt-md')))
 
+        time.sleep(3)
+
         try:
             username_input = self.browser.find_element_by_name('username')
             password_input = self.browser.find_element_by_name('password')
@@ -32,6 +34,8 @@ class ecom:
         password_input.send_keys(self.credentials['ecom']['password'])
 
         self.browser.find_element_by_css_selector("#log-form .btn1").click()
+
+        time.sleep(3)
 
         self.on = True
         debugReport(":ECOM: Login successful")
@@ -46,18 +50,20 @@ class ecom:
                 WebDriverWait(self.browser, self.max_wait_for_load).until(
                     EC.presence_of_element_located((By.CLASS_NAME, 'headerText')))
 
+                time.sleep(3)
+
                 self.browser.find_element_by_name("file").send_keys(get_upload_excel_file_location())
                 self.browser.find_element_by_css_selector(".col-md-6 button").click()
 
                 WebDriverWait(self.browser, self.max_wait_for_load).until(
                     EC.presence_of_element_located((By.ID, 'md-title')))
 
-                WebDriverWait(self.driver, 300)
+                time.sleep(50)
+
+                # WebDriverWait(self.browser, 300)
 
             except Exception as e:
                 errorReport(":ECOM: Upload failed because " + str(e))
-
-            # debugReport(":ECOM: Upload complete")
 
     def login_and_upload(self):
         self.login()

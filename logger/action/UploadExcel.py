@@ -28,14 +28,14 @@ class upload_excel:
         for order_id in order_ids:
             for order in order_list:
                 if int(order["order_number"]) == int(order_id):
-                    infoReport(":UPLOAD EXCEL: Processing Order Number - " + str(order_id))
-                    upload_needed = True
                     row += 1
+                    infoReport(":UPLOAD EXCEL: Processing Order Number - " + str(order_id) + " added to row " + str(row))
+                    upload_needed = True
 
                     self.default_values[0] = awb_number = order["fulfillments"][0]["tracking_number"]
                     self.default_values[1] = order_id = order["order_number"]
                     payment_gateway = order["payment_gateway_names"]
-                    print(payment_gateway)
+                    # print(payment_gateway)
                     if "cash_on_delivery" in payment_gateway:
                         self.default_values[2] = product = "COD"
                     else:
@@ -47,7 +47,7 @@ class upload_excel:
                     self.default_values[8] = pincode = order["billing_address"]["zip"]
                     self.default_values[9] = state = order["billing_address"]["province"]
                     self.default_values[10] = mobile = (str(order["billing_address"][
-                                                               "phone"])).replace(" ", "").replace("+91", "")
+                                                                "phone"])).strip().lstrip("0").replace(" ", "").replace("+91", "")
                     # print(str(order["billing_address"]["phone"]))
 
                     # print(str(order["billing_address"][
@@ -66,6 +66,5 @@ class upload_excel:
                     for index, item in enumerate(self.default_values):
                         self.worksheet.write(row, index, item)
 
-                    self.workbook.close()
-
+        self.workbook.close()
         return upload_needed

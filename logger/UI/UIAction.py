@@ -45,8 +45,6 @@ class ui_action(Frame):
         self.texbox = Text(self)
         self.texbox.pack(side=BOTTOM, padx=15, pady=15)
 
-
-
     def add_order(self):
         selected = self.order_list_box.getcurselection()
         if selected:
@@ -90,10 +88,15 @@ class ui_action(Frame):
         self.selected_list = list(self.selected_list_box.get(0, END))
         for order_id in self.selected_list:
             for order in self.shopify_orders:
-                phone = str(order["billing_address"]["phone"]).replace(" ", "").replace("+91", "")
+                phone = str(order["billing_address"]["phone"]).strip().lstrip("0").replace(" ", "").replace("+91", "")
                 if order["order_number"] == order_id:
+                    payment_gateway = order["payment_gateway_names"]
+                    if "cash_on_delivery" in payment_gateway:
+                        product = "COD"
+                    else:
+                        product = "PPD"
                     detail = str(order["order_number"]) + " -> " + str(
-                        order["fulfillments"][0]["tracking_number"]) + " -> " + phone + " -> " + str(
+                        order["fulfillments"][0]["tracking_number"]) + " -> " + product + " -> " + phone + " -> " + str(
                         order["billing_address"]["name"]) + "\n"
                     details.append(detail)
                     self.texbox.insert(INSERT, detail)

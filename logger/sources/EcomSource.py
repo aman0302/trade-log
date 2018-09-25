@@ -25,12 +25,9 @@ class ecom_source():
         self.browser.quit()
 
     def start(self):
-        try:
-            self.pre()
-            self.process()
-        except Exception as e:
-            errorReport(str(e))
-            # self.post()
+        self.pre()
+        self.process()
+        self.post()
 
     def pass_value(self, selected_list):
         self.selected_list = selected_list
