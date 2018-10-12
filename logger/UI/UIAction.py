@@ -102,7 +102,7 @@ class ui_action(Frame):
                         product = "PPD"
 
                     tracking_number=str(order["fulfillments"][0]["tracking_number"])
-                    detail = str(order["order_number"]) + " -> " +tracking_number + " -> " + product + " -> " + phone + " -> " + str(order["billing_address"]["name"]) + "\n"
+                    detail = str(order["order_number"]) + " -> " +tracking_number + " -> " + product + " -> " + phone + " -> " + str(order["shipping_address"]["name"]) + "\n"
                     details.append(detail)
                     self.texbox.insert(INSERT, detail)
                     self.awb_texbox.insert(INSERT, tracking_number+",")

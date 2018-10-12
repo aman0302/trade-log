@@ -40,17 +40,17 @@ class upload_excel:
                         self.default_values[2] = product = "COD"
                     else:
                         self.default_values[2] = product = "PPD"
-                    self.default_values[3] = name = order["billing_address"]["name"]
-                    self.default_values[4] = add1 = order["billing_address"]["address1"]
-                    self.default_values[5] = add2 = order["billing_address"]["address2"]
-                    self.default_values[7] = city = order["billing_address"]["city"]
-                    self.default_values[8] = pincode = order["billing_address"]["zip"]
-                    self.default_values[9] = state = order["billing_address"]["province"]
-                    self.default_values[10] = mobile = (str(order["billing_address"][
+                    self.default_values[3] = name = order["shipping_address"]["name"]
+                    self.default_values[4] = add1 = order["shipping_address"]["address1"]
+                    self.default_values[5] = add2 = order["shipping_address"]["address2"]
+                    self.default_values[7] = city = order["shipping_address"]["city"]
+                    self.default_values[8] = pincode = order["shipping_address"]["zip"]
+                    self.default_values[9] = state = order["shipping_address"]["province"]
+                    self.default_values[10] = mobile = (str(order["shipping_address"][
                                                                 "phone"])).strip().lstrip("0").replace(" ", "").replace("+91", "")
-                    # print(str(order["billing_address"]["phone"]))
+                    # print(str(order["shipping_address"]["phone"]))
 
-                    # print(str(order["billing_address"][
+                    # print(str(order["shipping_address"][
                     #               "phone"]).replaceAll(" ", "").replace("+91", ""))
                     self.default_values[12] = "Women Apparel"
                     self.default_values[13] = pieces = (len(order["line_items"]))
