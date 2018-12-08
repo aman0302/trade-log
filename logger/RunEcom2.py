@@ -12,4 +12,3 @@ logging.basicConfig(filename=get_log_file_name(), level=logging.INFO)
 infoReport('################ SERVER STARTED ###############')
 
 ui = ui_action()
-ui.mainloop()

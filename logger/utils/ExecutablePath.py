@@ -79,5 +79,17 @@ def get_excel_file_heading():
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'config', 'excel'))
 
 
+def get_reverse_pickup_excel_file_heading():
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'config', 'reverse_pickup_excel'))
+
+
+def get_reverse_pickup_awb_file_location():
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'ReverseAWBs'))
+
+
 def get_upload_excel_file_location():
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'EComExpress.xls'))
+
+
+def get_reverse_pickup_excel_file_location():
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'ReversePickup.xls'))
