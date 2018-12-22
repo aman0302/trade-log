@@ -87,6 +87,10 @@ def get_reverse_pickup_awb_file_location():
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'ReverseAWBs'))
 
 
+def get_forward_pickup_awb_file_location():
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'ForwardAWBs'))
+
+
 def get_upload_excel_file_location():
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'EComExpress.xls'))
 

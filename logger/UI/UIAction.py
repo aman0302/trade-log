@@ -23,6 +23,10 @@ class ui_action(Frame):
         notebook.add(self.tab2, text='Reverse Pickup')
         self.makeTab2()
 
+        self.tab3 = ttk.Frame(notebook)  # second page
+        notebook.add(self.tab3, text='Secret Label')
+        self.makeTab3()
+
         notebook.grid()
         self.root.mainloop()
 
@@ -178,6 +182,134 @@ class ui_action(Frame):
         self.summary = Text(self.tab2, height=2)
         self.summary.grid(row=2, column=2)
 
+    def makeTab3(self):
+        oidt = StringVar()
+        oidt.set("Order IDs")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=0, column=0)
+        self.sl_order_id = Entry(self.tab3)
+        self.sl_order_id.grid(row=0, column=1)
+
+        oidt = StringVar()
+        oidt.set("AWB Number")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=1, column=0)
+        self.sl_awb = Entry(self.tab3)
+        self.sl_awb.grid(row=1, column=1)
+
+        oidt = StringVar()
+        oidt.set("Name")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=2, column=0)
+        self.sl_name = Entry(self.tab3)
+        self.sl_name.grid(row=2, column=1)
+
+        oidt = StringVar()
+        oidt.set("Address 1")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=3, column=0)
+        self.sl_add1 = Entry(self.tab3)
+        self.sl_add1.grid(row=3, column=1)
+
+        oidt = StringVar()
+        oidt.set("Address 2")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=4, column=0)
+        self.sl_add2 = Entry(self.tab3)
+        self.sl_add2.grid(row=4, column=1)
+
+        oidt = StringVar()
+        oidt.set("Address 3")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=5, column=0)
+        self.sl_add3 = Entry(self.tab3)
+        self.sl_add3.grid(row=5, column=1)
+
+        oidt = StringVar()
+        oidt.set("City")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=6, column=0)
+        self.sl_city = Entry(self.tab3)
+        self.sl_city.grid(row=6, column=1)
+
+        oidt = StringVar()
+        oidt.set("Pin")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=7, column=0)
+        self.sl_pin = Entry(self.tab3)
+        self.sl_pin.grid(row=7, column=1)
+
+        oidt = StringVar()
+        oidt.set("State")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=8, column=0)
+        self.sl_state = Entry(self.tab3)
+        self.sl_state.grid(row=8, column=1)
+
+        oidt = StringVar()
+        oidt.set("Mobile")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=9, column=0)
+        self.sl_mobile = Entry(self.tab3)
+        self.sl_mobile.grid(row=9, column=1)
+
+        oidt = StringVar()
+        oidt.set("Description")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=10, column=0)
+        self.sl_desc = Entry(self.tab3)
+        self.sl_desc.grid(row=10, column=1)
+
+        oidt = StringVar()
+        oidt.set("Number of Pieces")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=11, column=0)
+        self.sl_pieces = Entry(self.tab3)
+        self.sl_pieces.grid(row=11, column=1)
+
+        oidt = StringVar()
+        oidt.set("Declared Value")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=12, column=0)
+        self.sl_dec_value = Entry(self.tab3)
+        self.sl_dec_value.grid(row=12, column=1)
+
+        oidt = StringVar()
+        oidt.set("Weight")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=13, column=0)
+        self.sl_dec_weight = Entry(self.tab3)
+        self.sl_dec_weight.grid(row=13, column=1)
+
+        oidt = StringVar()
+        oidt.set("Product(COD/PPD)")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=14, column=0)
+        self.sl_product = Entry(self.tab3)
+        self.sl_product.grid(row=14, column=1)
+
+        oidt = StringVar()
+        oidt.set("Collectible Value If PPD")
+        oidl = Label(self.tab3, textvariable=oidt)
+        oidl.grid(row=15, column=0)
+        self.sl_col_value = Entry(self.tab3)
+        self.sl_col_value.grid(row=15, column=1)
+
+        # confirm_button = Button(self.tab3, text="Confirm Orders", command=self.reverse_confirm_orders)
+        # confirm_button.grid(row=14, column=0)
+
+        assign_awb = Button(self.tab3, text="Assign AWB", command=self.sl_assign_awb)
+        assign_awb.grid(row=16, column=0)
+
+        sl_submit_button = Button(self.tab3, text="Proceed to ECOM", command=self.sl_submit)
+        sl_submit_button.grid(row=16, column=1)
+
+        sl_saved_add1 = Button(self.tab3, text="Ship to Secret Label", command=self.set_secret_label_address)
+        sl_saved_add1.grid(row=1, column=2)
+
+        self.sl_summary = Text(self.tab3, height=2)
+        self.sl_summary.grid(row=2, column=2)
+
     def get_order_ids(self):
         order_ids = []
         self.shopify_orders = self.shopify.get_all_recent_orders()["orders"]
@@ -225,22 +357,24 @@ class ui_action(Frame):
         self.selected_list = list(self.selected_list_box.get(0, END))
         for order_id in self.selected_list:
             for order in self.shopify.get_all_recent_orders()["orders"]:
-                phone = str(order["shipping_address"]["phone"]).strip().lstrip("0").replace(" ", "").replace("+91", "")
-                if order["order_number"] == order_id:
-                    payment_gateway = order["payment_gateway_names"]
-                    if "cash_on_delivery" in payment_gateway:
-                        product = "COD"
-                    else:
-                        product = "PPD"
+                if order["shipping_address"]["phone"]:
+                    phone = str(order["shipping_address"]["phone"]).strip().lstrip("0").replace(" ", "").replace("+91",
+                                                                                                                 "")
+                    if order["order_number"] == order_id:
+                        payment_gateway = order["payment_gateway_names"]
+                        if "cash_on_delivery" in payment_gateway:
+                            product = "COD"
+                        else:
+                            product = "PPD"
 
-                    tracking_number = str(order["fulfillments"][0]["tracking_number"])
-                    detail = str(order[
-                                     "order_number"]) + " -> " + tracking_number + " -> " + product + " -> " + phone + " -> " + str(
-                        order["shipping_address"]["name"]) + "\n"
-                    details.append(detail)
-                    self.texbox.insert(INSERT, detail)
-                    self.awb_texbox.insert(INSERT, tracking_number + ",")
-                    break
+                        tracking_number = str(order["fulfillments"][0]["tracking_number"])
+                        detail = str(order[
+                                         "order_number"]) + " -> " + tracking_number + " -> " + product + " -> " + phone + " -> " + str(
+                            order["shipping_address"]["name"]) + "\n"
+                        details.append(detail)
+                        self.texbox.insert(INSERT, detail)
+                        self.awb_texbox.insert(INSERT, tracking_number + ",")
+                        break
 
     def reverse_confirm_orders(self):
 
@@ -293,10 +427,46 @@ class ui_action(Frame):
 
                 self.summary.insert(INSERT, summary_text)
 
+    def sl_confirm_orders(self):
+        self.reverse_name.insert(0, "1")
+        self.reverse_add1.insert(0, "2")
+        self.reverse_add2.insert(0, "3")
+        self.reverse_city.insert(0, "4")
+        self.reverse_pin.insert(0, "5")
+        self.reverse_state.insert(0, "6")
+        self.reverse_mobile.insert(0, "7")
+
+        awb = self.assign_awb(is_reverse=False)
+
     def submit(self):
         self.ecom = ecom_source()
         self.ecom.pass_value(self.selected_list)
         self.ecom.start()
+
+    def sl_submit(self):
+        self.ecom = ecom_source()
+        self.ecom.pass_value(self.extract_data())
+        self.ecom.start()
+
+    def extract_data(self):
+        data = {}
+        data["awb"] = self.sl_awb.get()
+        data["order_id"] = self.sl_order_id.get()
+        data["name"] = self.sl_name.get()
+        data["address1"] = self.sl_add1.get()
+        data["address2"] = self.sl_add2.get()
+        data["city"] = self.sl_city.get()
+        data["pin"] = self.sl_pin.get()
+        data["state"] = self.sl_state.get()
+        data["mobile"] = self.sl_mobile.get()
+        data["description"] = self.sl_desc.get()
+        data["pieces"] = self.sl_pieces.get()
+        data["value"] = self.sl_dec_value.get()
+        data["weight"] = self.sl_dec_weight.get()
+        data["product"] = self.sl_product.get()
+        data["collectible"] = self.sl_col_value.get()
+
+        return data
 
     def reverse_submit(self):
         data = {}
@@ -332,3 +502,29 @@ class ui_action(Frame):
             last_line = lines[-1]
             self.reverse_awb.insert(0, last_line)
             return last_line
+
+    def assign_awb(self, is_reverse):
+        if is_reverse:
+            file_location = get_reverse_pickup_awb_file_location()
+        else:
+            file_location = get_forward_pickup_awb_file_location()
+
+        with open(file_location, 'r') as awbs:
+            lines = awbs.read().splitlines()
+            last_line = lines[-1]
+            return last_line
+
+    def sl_assign_awb(self):
+        self.sl_awb.delete(0, END)
+        self.sl_awb.insert(0, self.assign_awb(False))
+
+    def set_secret_label_address(self):
+        self.sl_name.insert(0,"Name")
+        self.sl_add1.insert(0,"Add 1")
+        self.sl_add2.insert(0,"Add 2")
+        self.sl_add3.insert(0,"Add 3")
+        self.sl_city.insert(0,"City")
+        self.sl_state.insert(0,"State")
+        self.sl_pin.insert(0,"Pin")
+        self.sl_mobile.insert(0,"Mobile")
+        self.sl_product.insert(0,"PPD")

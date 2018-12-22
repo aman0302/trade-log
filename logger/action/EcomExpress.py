@@ -39,11 +39,11 @@ class ecom:
     def upload(self):
         if self.on:
 
-            self.browser.find_element_by_css_selector(".close").click()
-            # time.sleep(2)
-            self.browser.find_elements_by_css_selector("a.ng-star-inserted")[5].click()
+            # self.browser.find_element_by_css_selector(".close").click()
             # time.sleep(2)
             self.browser.find_elements_by_css_selector("a.ng-star-inserted")[6].click()
+            # time.sleep(2)
+            self.browser.find_elements_by_css_selector("a.ng-star-inserted")[7].click()
             time.sleep(2)
             self.browser.find_element_by_css_selector(".mat-select-placeholder").click()
 
@@ -67,12 +67,10 @@ class ecom:
                     # WebDriverWait(self.browser, self.max_wait_for_load).until(
                     #     EC.presence_of_element_located((By.CLASS_NAME, 'headerText')))
                     self.browser.find_elements_by_css_selector(".mat-option-text")[1].click()
-                    time.sleep(2)
-                    self.browser.find_elements_by_css_selector(".mat-button-wrapper")[3].click()
-                    time.sleep(2)
 
-
-
+                time.sleep(2)
+                self.browser.find_elements_by_css_selector(".mat-button-wrapper")[3].click()
+                time.sleep(2)
                 # self.browser.find_element_by_name("file").send_keys(self.path)
                 self.browser.find_elements_by_id("file")[0].send_keys(self.path)
                 self.browser.find_element_by_css_selector(".col-md-6 button").click()
